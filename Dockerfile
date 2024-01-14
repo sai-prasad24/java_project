@@ -1,22 +1,19 @@
-# Use an official Maven image with OpenJDK 11 as a base image
-FROM maven:3.8.4-openjdk-11-slim AS build
+FROM ubuntu:20.04
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Set the working directory
+WORKDIR /app
 
-# Copy the project files into the container
-COPY . .
+# Update the package list and install OpenJDK 11
+RUN apt-get update \
+    && apt-get install -y openjdk-11-jre-headless \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Build the Maven project
+# Copy your application JAR file into the container
+COPY target/your-app.jar /app
 
-# Use an official Apache image as the base image
-FROM httpd:2.4
+# Expose the port your application will run on
+EXPOSE 8080
 
-# Copy the built artifacts from the Maven image to the Apache image
-COPY --from=build /usr/src/app/target/*.war /usr/local/apache2/htdocs/
-
-# Expose port 80 for Apache
-EXPOSE 80
-
-# Start Apache when the container runs
-CMD ["httpd-foreground"]
+# Command to run your application
+CMD ["java", "-jar", "your-app.jar"]
