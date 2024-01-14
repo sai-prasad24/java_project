@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  movies:
+    image: saiprasad957/netflix:v1
+    ports:
+      - "81:80"
+    deploy:
+      replicas: 2
