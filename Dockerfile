@@ -8,7 +8,6 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Build the Maven project
-RUN mvn clean install
 
 # Use an official Apache image as the base image
 FROM httpd:2.4
