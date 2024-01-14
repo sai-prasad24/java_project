@@ -1,19 +1,26 @@
+# Use Ubuntu as the base image
 FROM ubuntu:20.04
+
+# Install necessary dependencies
+RUN apt-get update \
+    && apt-get install -y openjdk-11-jre-headless maven apache2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /app
 
-# Update the package list and install OpenJDK 11
-RUN apt-get update \
-    && apt-get install -y openjdk-11-jre-headless \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Copy the application source code
+COPY . /app
 
-# Copy your application JAR file into the container
-COPY target/your-app.jar /app
+# Build the Java application with Maven
+RUN mvn clean install
 
-# Expose the port your application will run on
-EXPOSE 8080
+# Copy the compiled artifacts to Apache2 server directory
+RUN cp target/your-app.war /var/www/html
 
-# Command to run your application
-CMD ["java", "-jar", "your-app.jar"]
+# Expose the necessary port
+EXPOSE 80
+
+# Start Apache2
+CMD ["apache2ctl", "-D", "FOREGROUND"]
