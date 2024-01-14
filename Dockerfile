@@ -17,7 +17,7 @@ COPY . /app
 RUN mvn clean install
 
 # Copy the compiled artifacts to Apache2 server directory
-RUN cp target/your-app.war /var/www/html
+RUN cp target/NETFLIX-APP.war /var/www/html
 
 # Expose the necessary port
 EXPOSE 80
