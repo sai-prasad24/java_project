@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:latest
 FROM apt update -y
 RUN apt-get install -y open-11-jdk -y
 RUN apt install apache2 -y
