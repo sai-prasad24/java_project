@@ -12,7 +12,7 @@ RUN apt-get update \
 # Build the Java application with Maven
 
 # Copy the compiled artifacts to Apache2 server directory
-RUN cp target/NETFLIX-5.4.3.war /var/www/html
+COPY target/NETFLIX-5.4.3.war /var/www/html
 
 # Expose the necessary port
 EXPOSE 80
