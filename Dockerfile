@@ -8,10 +8,6 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
-WORKDIR /app
-
-# Copy the application source code
-COPY . /app
 
 # Build the Java application with Maven
 RUN mvn clean install
