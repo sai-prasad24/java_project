@@ -10,7 +10,6 @@ RUN apt-get update \
 # Set the working directory
 
 # Build the Java application with Maven
-RUN mvn clean install
 
 # Copy the compiled artifacts to Apache2 server directory
 RUN cp target/NETFLIX-5.4.3.war /var/www/html
